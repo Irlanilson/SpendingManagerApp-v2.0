@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    
+    <ion-title>Download DB</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<form>
+  		<div align="center">
+          <h4>
+            Esta opção permite fazer o backup da base de dados do app para posterior recuperação em um
+            outro aparelho ou no mesmo no caso de reinstalação do app. O arquivo será armazenado no diretório
+            "Android/data/com.spendingmanagerapp/files", que deve ser copiado para um outro diretório logo após o
+            backup, pois se o app for desinstalado o diretório do mesmo será apagado juntamente com a base.
+          </h4>
+        </div>
+        <br/><br/><br/>
+
+	    <div padding>
+	      <button ion-button block type="submit" (click)="downloadDatabase()">Download</button>
+	    </div>
+  	</form>
+</ion-content>

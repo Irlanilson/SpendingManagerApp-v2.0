@@ -1,0 +1,69 @@
+{
+    "items": [
+        {
+            "name": "Cadastros",
+            "children": [
+                {
+                    "name": "Categoria",
+                    "icon": "clipboard",
+                    "component": "CadastroCategoriaPage"
+                },
+                {
+                    "name": "Gasto",
+                    "icon": "logo-usd",
+                    "component": "CadastroGastoPage"
+                }
+            ]
+        },
+        {
+            "name": "Consultas",
+            "children": [
+                {
+                    "name": "Categorias",
+                    "icon": "ios-search",
+                    "component": "ConsultaCategoriaPage"
+                },
+                {
+                    "name": "Gastos",
+                    "icon": "md-search",
+                    "component": "ConsultaGastoPage"
+                }
+            ]
+        },
+        {
+            "name": "Relatórios",
+            "children": [
+                {
+                    "name": "Gastos Anual",
+                    "icon": "ios-list-box",
+                    "component": "AddDataPage"
+                },
+                {
+                    "name": "Gastos Mensal",
+                    "icon": "ios-list-box-outline",
+                    "component": "AddDataPage"
+                },
+                {
+                    "name": "Gastos Mensal por Período",
+                    "icon": "ios-list-box-outline",
+                    "component": "AddDataPage"
+                }
+            ]
+        },
+        {
+            "name": "Base de Dados",
+            "children": [
+                {
+                    "name": "Download",
+                    "icon": "ios-download",
+                    "component": "DownloadDatabasePage"
+                },
+                {
+                    "name": "Upload",
+                    "icon": "ios-share",
+                    "component": "UploadDatabasePage"
+                }
+            ]
+        }
+    ]
+}

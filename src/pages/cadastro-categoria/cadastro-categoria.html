@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    
+    <ion-title>Categoria</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="form">
+    <ion-item>
+      <ion-label>Descrição:</ion-label>
+      <ion-input type="text" formControlName="descricao"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!form.controls.descricao.valid && (form.controls.descricao.dirty || form.controls.descricao.touched)" color="danger">
+      <div [hidden]="!form.controls.descricao.errors.required">
+        O campo é obrigatório
+      </div>
+    </ion-item>
+    <div padding>
+      <button ion-button block type="submit" [disabled]="!form.valid" (click)="salvar()">Salvar</button>
+    </div>
+  </form>
+</ion-content>

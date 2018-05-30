@@ -1,0 +1,47 @@
+<ion-menu [content]="content">
+	<ion-header>
+	  <ion-navbar>
+	    <ion-title>
+	      Menu
+	    </ion-title>
+	  </ion-navbar>
+	</ion-header>
+	 
+	<ion-content>
+	  <ion-list class="accordion-list">
+	  	<button ion-item menuClose (click)="openPage(homePage)">
+			<ion-icon name="home"></ion-icon>
+			Home
+		</button>
+
+	    <!-- First Level -->
+	    <ion-list-header *ngFor="let item of menu; let i = index" no-lines no-padding>
+	      <!-- Toggle Button -->
+	      <button ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}">
+	        <ion-icon item-left name="arrow-forward" *ngIf="!item.open"></ion-icon>
+	        <ion-icon item-left name="arrow-down" *ngIf="item.open"></ion-icon>
+	          {{ item.name }}
+	      </button>
+	 
+	      <ion-list *ngIf="item.children && item.open">
+	        <!-- Second Level -->
+	        
+	          <button *ngFor="let child of item.children;" ion-item menuClose (click)="openPage(child.component)">
+					<ion-icon name="{{ child.icon }}"></ion-icon>
+					{{ child.name }}
+			  </button>
+	 
+	      </ion-list>
+	      
+	    </ion-list-header>
+
+	    <button ion-item menuClose (click)="openPage(aboutPage)">
+			<ion-icon name="information-circle"></ion-icon>
+			Sobre
+		</button>
+	  </ion-list>
+	</ion-content>
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

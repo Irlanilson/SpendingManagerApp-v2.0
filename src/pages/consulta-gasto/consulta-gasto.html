@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    
+    <ion-title>Gastos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<form [formGroup]="form">
+		<ion-item>
+	      <ion-label>Ano:</ion-label>
+	      <ion-select formControlName="ano">
+	      	<ion-option *ngFor="let ano of anos" [value]="ano.id">{{ ano.valor }}</ion-option>
+	      </ion-select>
+	    </ion-item>
+
+	    <ion-item>
+	      <ion-label>Mês:</ion-label>
+	      <ion-select formControlName="mes">
+	      	<ion-option *ngFor="let mes of meses" [value]="mes.id">{{ mes.valor }}</ion-option>
+	      </ion-select>
+	    </ion-item>
+
+	  	<ion-item>
+	      <ion-label>Categoria:</ion-label>
+	      <ion-select formControlName="categoria">
+	      	<ion-option *ngFor="let cat of categorias" [value]="cat.id">{{ cat.descricao }}</ion-option>
+	      </ion-select>
+	    </ion-item>
+
+	    <div padding>
+	      <button ion-button block type="submit" (click)="buscarGastos()">Buscar</button>
+	    </div>
+	</form>
+
+	<ion-list>
+	    <ion-item-sliding *ngFor="let g of gastos">
+	      <ion-item>
+	        <h1>{{ g.descricao }}</h1>
+	      </ion-item>
+
+	      <ion-item-options side="right">
+	        <button ion-button (click)="editContact(g)">
+	          <ion-icon name="create"></ion-icon>
+	        </button>
+
+	        <button ion-button (click)="removeContact(g.id)">
+	          <ion-icon name="trash"></ion-icon>
+	        </button>
+	      </ion-item-options>
+	    </ion-item-sliding>
+	</ion-list>
+</ion-content>

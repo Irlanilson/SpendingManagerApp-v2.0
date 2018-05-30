@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    
+    <ion-title>Upload DB</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<form>
+  		<div align="center">
+          <h4>
+            O upload da base de dados permite utilizar uma base previamente carregada. Para realizar o mesmo,
+            primeiramente é preciso mover o arquivo "base.bd", que foi salvo na opção de Download, para a o diretório
+            "Android/data/com.spendingmanagerapp/files", após isso basta fazer o upload, fechar o app e entrar novamente
+            que os dados pré cadastrados já estarão lá novamente.
+          </h4>
+        </div>
+        <br/><br/><br/>
+
+	    <div padding>
+	      <button ion-button block type="submit" (click)="uploadDatabase()">Upload</button>
+	    </div>
+  	</form>
+</ion-content>

@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    
+    <ion-title>Gasto</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="form">
+  	<ion-item>
+      <ion-label>Categoria:</ion-label>
+      <ion-select formControlName="categoria">
+      	<ion-option *ngFor="let cat of categorias" [value]="cat.id">{{ cat.descricao }}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Descrição:</ion-label>
+      <ion-input type="text" formControlName="descricao"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!form.controls.descricao.valid && (form.controls.descricao.dirty || form.controls.descricao.touched)" color="danger">
+      <div [hidden]="!form.controls.descricao.errors.required">
+        O campo é obrigatório
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Data:</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY" formControlName="data"></ion-datetime>
+    </ion-item>
+    <ion-item *ngIf="!form.controls.data.valid && (form.controls.data.dirty || form.controls.data.touched)" color="danger">
+      <div [hidden]="!form.controls.data.errors.required">
+        O campo é obrigatório
+      </div>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Valor R$:</ion-label>
+      <ion-input type="number" placeholder="casas decimais com vírgula" formControlName="valor" ></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!form.controls.valor.valid && (form.controls.valor.dirty || form.controls.valor.touched)" color="danger">
+      <div [hidden]="!form.controls.valor.errors.required">
+        O campo é obrigatório
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>É comum/normal?</ion-label>
+      <ion-checkbox formControlName="eh_constante"></ion-checkbox>
+    </ion-item>
+
+    <div padding>
+      <button ion-button block type="submit" [disabled]="!form.valid" (click)="salvar()">Salvar</button>
+    </div>
+  </form>
+</ion-content>
