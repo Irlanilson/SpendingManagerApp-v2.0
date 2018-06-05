@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    
+    <ion-title>Relatório por Período</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<form [formGroup]="form">
+	    <ion-item>
+	      <ion-label>Data inicial:</ion-label>
+	      <ion-datetime displayFormat="MM/DD/YYYY" formControlName="data_inicial"></ion-datetime>
+	    </ion-item>
+
+	    <ion-item>
+	      <ion-label>Data final:</ion-label>
+	      <ion-datetime displayFormat="MM/DD/YYYY" formControlName="data_final"></ion-datetime>
+	    </ion-item>
+
+	  	<ion-item>
+	      <ion-label>Tipo de gasto:</ion-label>
+	      <ion-select formControlName="tipo">
+	      	<ion-option [value]="2">Todos</ion-option>
+            <ion-option [value]="1">Comum</ion-option>
+            <ion-option [value]="0">Não comum</ion-option>
+	      </ion-select>
+	    </ion-item>
+
+	    <div padding>
+	      <button ion-button block type="submit" (click)="relatorioPeriodo()">Buscar</button>
+	    </div>
+	</form>
+</ion-content>

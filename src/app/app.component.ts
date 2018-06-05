@@ -14,6 +14,8 @@ import { ConsultaCategoriaPage } from '../pages/consulta-categoria/consulta-cate
 import { ConsultaGastoPage } from '../pages/consulta-gasto/consulta-gasto';
 import { DownloadDatabasePage } from '../pages/download-database/download-database';
 import { UploadDatabasePage } from '../pages/upload-database/upload-database';
+import { RelatorioMensalPage } from '../pages/relatorio-mensal/relatorio-mensal';
+import { RelatorioPeriodoPage } from '../pages/relatorio-periodo/relatorio-periodo';
 import { DatabaseProvider } from '../providers/database/database'
 
 @Component({

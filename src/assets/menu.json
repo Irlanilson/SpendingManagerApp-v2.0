@@ -34,19 +34,14 @@
             "name": "Relatórios",
             "children": [
                 {
-                    "name": "Gastos Anual",
-                    "icon": "ios-list-box",
-                    "component": "AddDataPage"
-                },
-                {
                     "name": "Gastos Mensal",
                     "icon": "ios-list-box-outline",
-                    "component": "AddDataPage"
+                    "component": "RelatorioMensalPage"
                 },
                 {
                     "name": "Gastos Mensal por Período",
                     "icon": "ios-list-box-outline",
-                    "component": "AddDataPage"
+                    "component": "RelatorioPeriodoPage"
                 }
             ]
         },

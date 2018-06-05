@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    
+    <ion-title>Relatório Mensal</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<form [formGroup]="form">
+		<ion-item>
+	      <ion-label>Ano:</ion-label>
+	      <ion-select formControlName="ano">
+	      	<ion-option *ngFor="let ano of anos" [value]="ano.id">{{ ano.valor }}</ion-option>
+	      </ion-select>
+	    </ion-item>
+
+	    <ion-item>
+	      <ion-label>Mês:</ion-label>
+	      <ion-select formControlName="mes">
+	      	<ion-option *ngFor="let mes of meses" [value]="mes.id">{{ mes.valor }}</ion-option>
+	      </ion-select>
+	    </ion-item>
+
+	  	<ion-item>
+	      <ion-label>Tipo de gasto:</ion-label>
+	      <ion-select formControlName="tipo">
+	      	<ion-option [value]="2">Todos</ion-option>
+            <ion-option [value]="1">Comum</ion-option>
+            <ion-option [value]="0">Não comum</ion-option>
+	      </ion-select>
+	    </ion-item>
+
+	    <div padding>
+	      <button ion-button block type="submit" (click)="relatorioMensal()">Buscar</button>
+	    </div>
+	</form>
+</ion-content>

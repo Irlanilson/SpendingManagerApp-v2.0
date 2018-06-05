@@ -89,9 +89,7 @@ export class GastoProvider {
   public getAll() {
     return this.dbProvider.getDB()
     .then((db: SQLiteObject) => {
-      let sql = 'select * from gasto where id = ?';
-      let data = [id];
- 
+      
       return db.executeSql('select * from gasto', [])
         .then((data: any) => {
           if (data.rows.length > 0) {
