@@ -31,7 +31,9 @@ export class CadastroGastoPage {
    * Runs when the page has loaded
    */
   ionViewDidLoad() {
+    // APENAS PARA TESTE
     this.categorias = [{ id:1, descricao:"Cat 1"}, { id:2, descricao:"Cat 2"}];
+    // FIM TESTE
     /*
     this.categoriaProvider.getAll()
       .then((result: any[]) => {

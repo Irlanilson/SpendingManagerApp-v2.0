@@ -46,9 +46,11 @@ export class ConsultaGastoPage {
       {valor: 'Novembro', id: 11}, {valor: 'Dezembro', id: 12}
     ];
 
+    // APENAS PARA TESTE
     this.anos = [{valor: '2017', id: 2017}, {valor: '2018', id: 2018}]
 
     this.categorias = [{ id:1, descricao:"Cat 1"}, { id:2, descricao:"Cat 2"}];
+    // FIM TESTE
     /*
     this.categoriaProvider.getAll()
       .then((result: any[]) => {

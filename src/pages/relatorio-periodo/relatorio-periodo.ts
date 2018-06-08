@@ -43,7 +43,7 @@ export class RelatorioPeriodoPage {
     let dataFim = datePipe.transform(this.form.value.data_final, 'dd/MM/yyyy');
 
     let titulo_relatorio = 'Gastos de ' + dataIni + ' a ' + dataFim;
-    this.navCtrl.push('RelatorioPeriodoListaPage', { dados: this.form.value, titulo_relatorio: titulo_relatorio });
+    this.navCtrl.push('RelatorioPeriodoListaPage', { gastos: this.gastos, titulo_relatorio: titulo_relatorio });
     /*
     this.gastoProvider.searchGastos(this.form.value)
       .then((result: any[]) => {

@@ -50,7 +50,7 @@ export class RelatorioMensalPage {
 
   relatorioMensal(){
     let titulo_relatorio = 'Relatório Mensal ' + this.meses[this.form.value.mes-1].valor + " de " + this.form.value.ano;
-    this.navCtrl.push('RelatorioMensalListaPage', { dados: this.form.value, titulo_relatorio: titulo_relatorio });
+    this.navCtrl.push('RelatorioMensalListaPage', { gastos: this.gastos, titulo_relatorio: titulo_relatorio });
     /*
     this.gastoProvider.searchGastos(this.form.value)
       .then((result: any[]) => {
