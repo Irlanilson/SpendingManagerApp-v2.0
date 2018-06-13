@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GastoProvider } from './../../providers/gasto/gasto';
 import { CategoriaProvider } from './../../providers/categoria/categoria';
@@ -20,7 +20,7 @@ export class ConsultaGastoPage {
 
   constructor(
     public navCtrl: NavController, public navParams: NavParams, private categoriaProvider: CategoriaProvider,
-    private formBuilder: FormBuilder, private gastoProvider: GastoProvider, private toast: ToastController) {
+    private formBuilder: FormBuilder, private gastoProvider: GastoProvider, private toast: ToastController, public alertCtrl: AlertController) {
 
     this.createForm();
   }
@@ -60,6 +60,42 @@ export class ConsultaGastoPage {
         this.toast.create({ message: 'Erro ao carregar as categorias.', duration: 3000, position: 'botton' }).present();
       });
       */
+  }
+
+  editar(gasto: any) {
+    this.navCtrl.push('CadastroGastoPage', { gasto: gasto });
+  }
+
+  showConfirm(idGasto) {
+    const confirm = this.alertCtrl.create({
+      title: 'Alerta',
+      message: 'Tem certeza que deseja excluir o gasto?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: () => {
+            
+          }
+        },
+        {
+          text: 'Sim',
+          handler: () => {
+            this.gastoProvider.remove(idGasto)
+              .then(() => {
+                this.toast.create({ message: 'Gasto removido sucesso.', duration: 3000 }).present();
+              })
+              .catch(() => {
+                this.toast.create({ message: 'Erro ao remover o gasto.', duration: 3000, position: 'botton' }).present();
+              });
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  remover(id) {
+    this.showConfirm(id);
   }
 
   buscarGastos(){

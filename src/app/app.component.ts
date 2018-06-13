@@ -7,7 +7,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { AboutPage } from '../pages/about/about';
-import { AddDataPage } from '../pages/add-data/add-data';
 import { CadastroCategoriaPage } from '../pages/cadastro-categoria/cadastro-categoria';
 import { CadastroGastoPage } from '../pages/cadastro-gasto/cadastro-gasto';
 import { ConsultaCategoriaPage } from '../pages/consulta-categoria/consulta-categoria';
@@ -34,7 +33,6 @@ export class MyApp {
     this.rootPage = HomePage;
     this.homePage = HomePage;
     this.aboutPage = AboutPage;
-    this.addPage = AddDataPage;
 
     let localData = http.get('assets/menu.json').map(res => res.json().items);
     localData.subscribe(data => {

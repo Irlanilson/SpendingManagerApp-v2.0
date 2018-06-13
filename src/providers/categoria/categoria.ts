@@ -68,6 +68,25 @@ export class CategoriaProvider {
       .catch((e) => console.error(e));
   }
 
+  public checkCategoriaInGasto(idCategoria: number) {
+    return this.dbProvider.getDB()
+      .then((db: SQLiteObject) => {
+        let sql = 'select * from gasto where categoria = ?';
+        let data = [idCategoria];
+ 
+        return db.executeSql(sql, data)
+          .then((data: any) => {
+            if (data.rows.length > 0) {
+              return true;
+            }
+ 
+            return false;
+          })
+          .catch((e) => console.error(e));
+      })
+      .catch((e) => console.error(e));
+  }
+
   public getAll() {
     return this.dbProvider.getDB()
     .then((db: SQLiteObject) => {

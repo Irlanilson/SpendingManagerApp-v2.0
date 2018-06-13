@@ -2,8 +2,9 @@
   <ion-navbar>
     <ion-title>{{ titulo_relatorio }}</ion-title>
   </ion-navbar>
-
 </ion-header>
+	
+<ion-content padding>
 	<ion-list *ngFor="let item of gastos; let i = index">
       <ion-item class="item-divider item-positive"
                 *ngIf="(gastos[i-1].categoria 	!== gastos[i].categoria) || (gastos[i-1].mes !== gastos[i].mes)"
@@ -28,6 +29,4 @@
         <b>TOTAL DO PERÍODO: {{ item.total_mes | currency}}</b>
       </ion-item>
     </ion-list>
-<ion-content padding>
-
 </ion-content>

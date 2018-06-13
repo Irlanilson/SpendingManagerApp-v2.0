@@ -108,6 +108,28 @@ export class GastoProvider {
     .catch((e) => console.error(e));
   }
 
+  public listaAnos() {
+    return this.dbProvider.getDB()
+    .then((db: SQLiteObject) => {
+      
+      return db.executeSql('select distinct(ano) from gasto order by ano desc', [])
+        .then((result: any) => {
+          if (result.rows.length > 0) {
+            let anos: any[] = [];
+            for (var i = 0; i < result.rows.length; i++) {
+              anos.push({id: result.rows.item(i).ano, valor: result.rows.item(i).ano});
+            }
+
+            return anos;
+          } else {
+            return [];
+          }
+        })
+        .catch((e) => console.error(e));
+    })
+    .catch((e) => console.error(e));
+  }
+
   public searchGastos(objeto: any) {
     return this.dbProvider.getDB()
     .then((db: SQLiteObject) => {
@@ -143,6 +165,137 @@ export class GastoProvider {
             return gastos;
           } else {
             return [];
+          }
+        })
+        .catch((e) => console.error(e));
+    })
+    .catch((e) => console.error(e));
+  }
+
+  public relatorioMensal(objeto: any) {
+    return this.dbProvider.getDB()
+    .then((db: SQLiteObject) => {
+      let gastos: any[] = [];
+      let sql = '';
+      let tipoGasto = 0;
+      let data = '';
+      let totalMes = 0;
+      let totalCategoria = 0;
+
+      if (objeto.tipo)
+        tipoGasto = objeto.tipo
+
+      if (tipoGasto == 2) {//Todos
+        sql = "select g.*, c.descricao as categoria from gasto g, categoria c where ano = ? and mes = ?"
+          + " and g.categoria = c.id order by c.descricao, dia";
+      } else if (tipoGasto == 1) {//Constante
+        sql = "select g.*, c.descricao as categoria from gasto g, categoria c where ano = ? and mes = ? and eh_constante = 'true'"
+          + " and g.categoria = c.id order by c.descricao, dia";
+      } else if (tipoGasto == 0) {//Não constante
+        sql = "select g.*, c.descricao as categoria from gasto g, categoria c where ano = ? and mes = ? and eh_constante = 'false'"
+          + " and g.categoria = c.id order by c.descricao, dia";
+      }
+
+      let dados = [objeto.ano, objeto.mes];
+
+      return db.executeSql(sql, dados)
+        .then((result: any) => {
+          if (result.rows.length > 0) {
+            for (var i = 0; i < result.rows.length; i++) {
+              totalMes = totalMes + result.rows.item(i).valor;
+              totalCategoria = totalCategoria + result.rows.item(i).valor;
+              data = this.formatNumber(result.rows.item(i).dia) + "/" + this.formatNumber(result.rows.item(i).mes) +
+                "/" + result.rows.item(i).ano;
+
+              gastos.push({
+                id: result.rows.item(i).id, ano: result.rows.item(i).ano,
+                mes: result.rows.item(i).mes, dia: result.rows.item(i).dia,
+                data: data, categoria: result.rows.item(i).categoria, descricao: result.rows.item(i).descricao,
+                valor: result.rows.item(i).valor, eh_constante: result.rows.item(i).eh_constante,
+                total_categoria: totalCategoria, total_mes: totalMes
+              });
+
+              // Condicional para zerar o total da categoria
+              if (i < result.rows.length - 1 && (result.rows.item(i + 1).categoria != result.rows.item(i).categoria ||
+                result.rows.item(i + 1).mes != result.rows.item(i).mes)) {
+                totalCategoria = 0;
+              }
+            }
+            return gastos;
+          } else {
+            return gastos;
+          }
+        })
+        .catch((e) => console.error(e));
+    })
+    .catch((e) => console.error(e));
+  }
+
+  public relatorioMensalPeriodo(objeto: any) {
+    return this.dbProvider.getDB()
+    .then((db: SQLiteObject) => {
+      let gastos: any[] = [];
+      let sql = '';
+      let tipoGasto = 0;
+      let data = '';
+      let totalMes = 0;
+      let totalCategoria = 0;
+
+      let data1 = new Date(objeto.data_inicial);
+      let dia1 = data1.getDate();
+      let mes1 = data1.getMonth() + 1;
+      let ano1 = data1.getFullYear();
+
+      let data2 = new Date(objeto.data_final);
+      let dia2 = data2.getDate();
+      let mes2 = data2.getMonth() + 1;
+      let ano2 = data2.getFullYear();
+
+      if (objeto.tipo)
+        tipoGasto = objeto.tipo
+
+      if (tipoGasto == 2) {//Todos
+        sql = "select g.*, c.descricao as categoria from gasto g, categoria c where ano between ? and ?"
+          + " and mes between ? and ? and dia between ? and ?"
+          + " and g.categoria = c.id order by c.descricao, dia";
+      } else if (tipoGasto == 1) {//Constante
+        sql = "select g.*, c.descricao as categoria from gasto g, categoria c where ano between ? and ?"
+          + " and mes between ? and ? and eh_constante = 'true'"
+          + " and dia between ? and ? and g.categoria = c.id order by c.descricao, dia";
+      } else if (tipoGasto == 0) {//Não constante
+        sql = "select g.*, c.descricao as categoria from gasto g, categoria c where ano between ? and ?"
+          + " and mes between ? and ? and eh_constante = 'false'"
+          + " and dia between ? and ? and g.categoria = c.id order by c.descricao, dia";
+      }
+
+      let dados = [ano1, ano2, mes1, mes2, dia1, dia2];
+
+      return db.executeSql(sql, dados)
+        .then((result: any) => {
+          if (result.rows.length > 0) {
+            for (var i = 0; i < result.rows.length; i++) {
+              totalMes = totalMes + result.rows.item(i).valor;
+              totalCategoria = totalCategoria + result.rows.item(i).valor;
+              data = this.formatNumber(result.rows.item(i).dia) + "/" + this.formatNumber(result.rows.item(i).mes) +
+                "/" + result.rows.item(i).ano;
+
+              gastos.push({
+                id: result.rows.item(i).id, ano: result.rows.item(i).ano,
+                mes: result.rows.item(i).mes, dia: result.rows.item(i).dia,
+                data: data, categoria: result.rows.item(i).categoria, descricao: result.rows.item(i).descricao,
+                valor: result.rows.item(i).valor, eh_constante: result.rows.item(i).eh_constante,
+                total_categoria: totalCategoria, total_mes: totalMes
+              });
+
+              // Condicional para zerar o total da categoria
+              if (i < result.rows.length - 1 && (result.rows.item(i + 1).categoria != result.rows.item(i).categoria ||
+                result.rows.item(i + 1).mes != result.rows.item(i).mes)) {
+                totalCategoria = 0;
+              }
+            }
+            return gastos;
+          } else {
+            return gastos;
           }
         })
         .catch((e) => console.error(e));
