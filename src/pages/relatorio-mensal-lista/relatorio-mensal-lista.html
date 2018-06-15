@@ -5,27 +5,24 @@
 </ion-header>
 	
 <ion-content padding>
-	<ion-list *ngFor="let item of gastos; let i = index">
-	  <ion-item class="item-divider item-positive" style="background: #2E64FE;"
-	            *ngIf="i > 0 && ((gastos[i-1].categoria != gastos[i].categoria) || (gastos[i-1].mes != gastos[i].mes))">
-	    Categoria: {{gastos[i].categoria }}
-	  </ion-item>
+	<ion-item-group *ngFor="let gasto of lista_gastos; let i = index">
 
-	  <ion-item *ngIf="gastos.length == 0">
+	  <ion-item *ngIf="lista_gastos.length == 0">
 	    Sem gastos!
 	  </ion-item>
+ 
+      <ion-item-divider style="background-color: #2E64FE;">{{gasto.categoria}}</ion-item-divider>
+      <ion-item *ngFor="let item of gasto.itens">
+      	<div>Dia {{ item.data }}: {{item.descricao}} <b>{{item.valor | currency}}</b></div>
+      </ion-item>
 
-	  <ion-item>
-	    <div>Dia {{ item.data }}: {{item.descricao}} <b>{{item.valor | currency}}</b></div>
+      <ion-item>
+      	<b>Total da Categoria: {{ gasto.total_categoria | currency}}</b>
 	  </ion-item>
 
-	  <ion-item class="item-divider item-stable"
-	            *ngIf="(gastos[i+1].categoria !== gastos[i].categoria) || (gastos[i+1].mes !== gastos[i].mes)">
-	    <b>Total da Categoria: {{ item.total_categoria | currency}}</b>
+	  <ion-item *ngIf="i+1 == gastos.length">
+	    <b>TOTAL DO MÊS: {{ gasto.total_mes | currency}}</b>
 	  </ion-item>
-
-	  <ion-item class="item-divider item-stable" *ngIf="i+1 == gastos.length">
-	    <b>TOTAL DO MÊS: {{ item.total_mes | currency}}</b>
-	  </ion-item>
-	</ion-list>
+ 
+    </ion-item-group>
 </ion-content>
